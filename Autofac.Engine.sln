@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{391F1105-84AF-4348-AB70-473D6B6D2DA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nupkg", "Nupkg", "{FF1F7609-0C99-45E4-91AB-7CEC486F8EB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{F08CCB58-455F-4C05-96FB-1AD9DCC32795}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{476CD54E-22FE-4EE6-9B1A-8DDBA3025AD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autofac.Engine", "Autofac.Engine", "{DD7740E4-EBB9-4B73-B9A8-DB1CB33BF037}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1F61DAD4-8B88-4E2C-97FB-BCACC34F301E}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD7740E4-EBB9-4B73-B9A8-DB1CB33BF037} = {476CD54E-22FE-4EE6-9B1A-8DDBA3025AD2}
+		{1F61DAD4-8B88-4E2C-97FB-BCACC34F301E} = {476CD54E-22FE-4EE6-9B1A-8DDBA3025AD2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E728BACF-60E2-42D2-BB31-428685388808}
+	EndGlobalSection
+EndGlobal
