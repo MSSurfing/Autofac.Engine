@@ -4,8 +4,19 @@
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.3.0" />
+    <PackageReference Include="Autofac" Version="4.2.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>2.0.0</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

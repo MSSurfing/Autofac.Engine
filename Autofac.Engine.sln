@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autofac.Engine", "Src\Autof
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCore", "NetCore", "{43724964-F226-43A0-9862-DBF7EB1508E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSurfing.Web.NetCore", "Samples\NetCore\MSSurfing.Web.NetCore\MSSurfing.Web.NetCore.csproj", "{E17304EA-8A7B-4B5D-8D4F-25AE973CC404}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +29,6 @@ Global
 		{671CF186-AA5D-461B-84B3-05016F061EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{671CF186-AA5D-461B-84B3-05016F061EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{671CF186-AA5D-461B-84B3-05016F061EEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E17304EA-8A7B-4B5D-8D4F-25AE973CC404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E17304EA-8A7B-4B5D-8D4F-25AE973CC404}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E17304EA-8A7B-4B5D-8D4F-25AE973CC404}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E17304EA-8A7B-4B5D-8D4F-25AE973CC404}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,7 +38,6 @@ Global
 		{1F61DAD4-8B88-4E2C-97FB-BCACC34F301E} = {476CD54E-22FE-4EE6-9B1A-8DDBA3025AD2}
 		{671CF186-AA5D-461B-84B3-05016F061EEF} = {DD7740E4-EBB9-4B73-B9A8-DB1CB33BF037}
 		{43724964-F226-43A0-9862-DBF7EB1508E8} = {F08CCB58-455F-4C05-96FB-1AD9DCC32795}
-		{E17304EA-8A7B-4B5D-8D4F-25AE973CC404} = {43724964-F226-43A0-9862-DBF7EB1508E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E728BACF-60E2-42D2-BB31-428685388808}

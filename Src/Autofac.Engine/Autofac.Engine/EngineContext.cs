@@ -1,4 +1,6 @@
 ﻿using Autofac.Core.Lifetime;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,51 +11,85 @@ namespace Autofac.Engine
     public partial class EngineContext
     {
         #region Fields
-        private static Func<IContainer, LifetimeScope> _scope;
+        private static Func<IContainer, ILifetimeScope> _scope = DefaultScope;
         private static IContainer _container;
+        public static ILifetimeScope Scope { get => _scope(_container); }
 
-        public static LifetimeScope Scope
-        {
-            get
-            {
-                return _scope.Invoke(_container);
-            }
-        }
+#if NETSTANDARD2_0
+        private static IServiceProvider _serviceProvider { get; set; }
+        public static IServiceProvider ServiceProvider => _serviceProvider;
+#endif
         #endregion
 
-        #region Scope Utilities
-        protected static LifetimeScope DefaultScope(IContainer container)
+        #region Utilities
+        protected static ILifetimeScope DefaultScope(IContainer container)
         {
-            return container as LifetimeScope;
+            return container.BeginLifetimeScope();
         }
-        protected static void SetScope(ScopeTag tag, Func<IContainer, LifetimeScope> providerScope = null)
+
+        protected static void SetScope(string tag)
+        {
+            _scope = (e) => e.BeginLifetimeScope(tag);
+        }
+        protected static void SetScope(ScopeTag tag)
         {
             switch (tag)
             {
                 case ScopeTag.Http:
-                    _scope = (e) => { return e.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag) as LifetimeScope; };
-                    break;
-                case ScopeTag.Provider:
-                    _scope = providerScope ?? DefaultScope;
+                    _scope = (e) => e.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
                     break;
                 default:
                     _scope = DefaultScope;
                     break;
             }
         }
-        #endregion
 
-        #region Utilities
-        protected static IContainer BuildContainer(Action<ContainerBuilder> populate = null)
+#if NETSTANDARD2_0
+        private static IServiceProvider GetServiceProvider()
         {
-            //var builder = new ContainerBuilder();
-            //var container = builder.Build();
+            if (_serviceProvider == null)
+                _serviceProvider = new AutofacServiceProvider(_container);
+
+            //ToImprove  Microsoft.AspNetCore.Http.HttpContext.IServiceProvider
+            return _serviceProvider;
+        }
+
+        protected static IContainer RegisterDependencies(IServiceCollection services = null)
+        {
+            var containerBuilder = new ContainerBuilder();
 
             var typeFinder = new DomainTypeFinder();
-            var builder = new ContainerBuilder();
-            builder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
+            containerBuilder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
 
-            //builder = new ContainerBuilder();
+            var dependencyTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
+            var dependencyInstances = new List<IDependencyRegistrar>();
+            foreach (var dependency in dependencyTypes)
+            {
+                dependencyInstances.Add((IDependencyRegistrar)Activator.CreateInstance(dependency));
+            }
+
+
+            dependencyInstances = dependencyInstances.AsQueryable().OrderBy(t => t.Order).ToList();
+            foreach (var dependencyRegistrar in dependencyInstances)
+                dependencyRegistrar.Register(containerBuilder, typeFinder);
+
+            if (services != null)
+                containerBuilder.Populate(services);
+
+
+            _container = containerBuilder.Build();
+            return _container;
+        }
+#endif
+
+#if NET45
+        protected static void RegisterDependencies()
+        {
+            var builder = new ContainerBuilder();
+
+            var typeFinder = new DomainTypeFinder();
+            builder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
+
             var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
             var drInstances = new List<IDependencyRegistrar>();
             foreach (var drType in drTypes)
@@ -63,23 +99,59 @@ namespace Autofac.Engine
             foreach (var dependencyRegistrar in drInstances)
                 dependencyRegistrar.Register(builder, typeFinder);
 
-            populate?.Invoke(builder);
             _container = builder.Build();
-            return _container;
         }
+#endif
         #endregion
 
         #region Methods
+
+#if NETSTANDARD2_0
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IContainer Initialize(bool forceRecreate, Action<ContainerBuilder> populate = null, ScopeTag tag = ScopeTag.None, Func<IContainer, LifetimeScope> providerScope = null)
+        public static IServiceProvider Initialize(IServiceCollection services = null, ScopeTag tag = ScopeTag.None)
         {
-            if (_container == null || forceRecreate)
-            {
-                BuildContainer(populate);
-            }
-            SetScope(tag, providerScope);
+            if (services != null)
+                services.BuildServiceProvider();
+
+            SetScope(tag);
+            RegisterDependencies(services);
+            return GetServiceProvider();
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static IServiceProvider Initialize(string tag)
+        {
+            return Initialize(null, tag);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static IServiceProvider Initialize(IServiceCollection services, string tag)
+        {
+            if (services != null)
+                services.BuildServiceProvider();
+
+            SetScope(tag);
+            RegisterDependencies(services);
+            return GetServiceProvider();
+        }
+#endif
+
+#if NET45
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static IContainer Initialize(ScopeTag tag = ScopeTag.None)
+        {
+            RegisterDependencies();
+            SetScope(tag);
             return _container;
         }
+
+        [Obsolete("已不支持forceRecreate，可以使用 Initialize(ScopeTag)", false)]
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static IContainer Initialize(bool forceRecreate, ScopeTag tag = ScopeTag.None)
+        {
+            return Initialize(tag);
+        }
+#endif
         #endregion
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Autofac.Engine
@@ -20,19 +19,25 @@ namespace Autofac.Engine
         {
             get { return AppDomain.CurrentDomain; }
         }
+
         #endregion
 
         #region Utilities
         protected virtual string GetBinDirectory()
         {
-#if !NETCOREAPP2_0
+#if NET45
             return AppDomain.CurrentDomain.BaseDirectory;
 #else
             return System.AppContext.BaseDirectory;
 #endif
         }
 
-        protected virtual bool Matches(string assemblyFullName, string pattern = IGNORE_ASSEMBLY_PATTERN)
+        protected virtual bool TypeFilter(Type type, Object filterCriteria)
+        {
+            return true;
+        }
+
+        protected virtual bool IsMatch(string assemblyFullName, string pattern)
         {
             return Regex.IsMatch(assemblyFullName, pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
@@ -42,12 +47,15 @@ namespace Autofac.Engine
             if (!Directory.Exists(directoryPath))
                 return;
 
-            foreach (var dllPath in Directory.GetFiles(directoryPath, "*.dll"))
+            if (ignoreAssemblyNames == null)
+                ignoreAssemblyNames = new List<string>();
+
+            foreach (string dllPath in Directory.GetFiles(directoryPath, "*.dll"))
             {
                 try
                 {
                     var an = AssemblyName.GetAssemblyName(dllPath);
-                    if (!Matches(an.FullName) && !ignoreAssemblyNames.Contains(an.FullName))
+                    if (!IsMatch(an.FullName, IGNORE_ASSEMBLY_PATTERN) && !ignoreAssemblyNames.Contains(an.FullName))
                         Domain.Load(an);
                 }
                 catch (BadImageFormatException ex)
@@ -61,7 +69,7 @@ namespace Autofac.Engine
         {
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (!Matches(assembly.FullName))
+                if (!IsMatch(assembly.FullName, IGNORE_ASSEMBLY_PATTERN))
                 {
                     if (!assemblyNames.Contains(assembly.FullName))
                     {
@@ -77,12 +85,12 @@ namespace Autofac.Engine
             try
             {
                 var genericTypeDefinition = openGeneric.GetGenericTypeDefinition();
-                foreach (var implementedInterface in type.FindInterfaces((objType, objCriteria) => true, null))
+                foreach (var baseInterfaceType in type.FindInterfaces(TypeFilter, null))
                 {
-                    if (!implementedInterface.IsGenericType)
+                    if (!baseInterfaceType.IsGenericType)
                         continue;
 
-                    var isMatch = genericTypeDefinition.IsAssignableFrom(implementedInterface.GetGenericTypeDefinition());
+                    var isMatch = genericTypeDefinition.IsAssignableFrom(baseInterfaceType.GetGenericTypeDefinition());
                     return isMatch;
                 }
                 return false;
@@ -95,37 +103,6 @@ namespace Autofac.Engine
         #endregion
 
         #region Methods
-        public virtual IList<Assembly> GetAssemblies(bool allInBinDirectory = true)
-        {
-            var assemblyNames = new List<string>();
-            var assemblies = new List<Assembly>();
-
-            AddAssembliesInAppDomain(assemblyNames, assemblies);
-
-            if (allInBinDirectory)
-            {
-                var binPath = GetBinDirectory();
-                LoadMatchingAssemblies(binPath, assemblyNames);
-            }
-
-            return assemblies;
-        }
-
-        public IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true)
-        {
-            return FindClassesOfType(typeof(T), onlyConcreteClasses);
-        }
-
-        public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true)
-        {
-            return FindClassesOfType(assignTypeFrom, GetAssemblies(), onlyConcreteClasses);
-        }
-
-        public IEnumerable<Type> FindClassesOfType<T>(IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
-        {
-            return FindClassesOfType(typeof(T), assemblies, onlyConcreteClasses);
-        }
-
         public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
         {
             var result = new List<Type>();
@@ -176,6 +153,39 @@ namespace Autofac.Engine
                 throw fail;
             }
             return result;
+        }
+
+        public virtual IList<Assembly> GetAssemblies(bool allInBinDirectory = true)
+        {
+            var assemblyNames = new List<string>();
+            var assemblies = new List<Assembly>();
+
+            AddAssembliesInAppDomain(assemblyNames, assemblies);
+            if (allInBinDirectory)
+            {
+                var binPath = GetBinDirectory();
+                LoadMatchingAssemblies(binPath, assemblyNames);
+            }
+
+            return assemblies;
+        }
+
+        #endregion
+
+        #region Overload FindClassesOfType
+        public IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true)
+        {
+            return FindClassesOfType(typeof(T), onlyConcreteClasses);
+        }
+
+        public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true)
+        {
+            return FindClassesOfType(assignTypeFrom, GetAssemblies(), onlyConcreteClasses);
+        }
+
+        public IEnumerable<Type> FindClassesOfType<T>(IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
+        {
+            return FindClassesOfType(typeof(T), assemblies, onlyConcreteClasses);
         }
         #endregion
     }
