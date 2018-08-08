@@ -1,0 +1,43 @@
+Github => https://github.com/MSSurfing/Autofac.Engine
+Samples => https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples
+
+Net Core:
+	MSSurfing.WebApi.Core
+		http://localhost:57104/api/user/adduser
+		http://localhost:57104/api/user
+		http://localhost:57104/api/plugin
+
+	MSSurfing.ThriftServer.Core (Console)
+
+... See => MSSurfing.WebApi.Core\..
+... See => MSSurfing.ThriftServer.Core\..
+
+
+Net45+:
+	MSSurfing.WebApi.Net45
+		http://localhost:60228/api/user/adduser
+		http://localhost:60228/api/user
+		http://localhost:60228/api/plugin
+
+	MSSurfing.gRpcServer.Net45 (Console)
+		
+
+Net45+ Code (Console Program): {
+	Init:  EngineContext.Initialize();
+	Registrar : See => MSSurfing.gRpcServer.Net45\Infrastrcture\DependencyRegistrar
+	
+	...
+}
+
+Net45+ Code (Web / Web api ): {
+    Init:  EngineContext.Initialize(false,ScopeTag.None);
+    WebMvc SetResolver:  DependencyResolver.SetResolver(new AutofacDependencyResolver(EngineContext.Scope));		//Install-Package Autofac.Mvc5
+    WebApi SetResolver:  GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(EngineContext.Scope);		//Install-Package Autofac.WebApi2
+    Registrar:  IDependencyRegistrar:  { 
+		builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());			//register mvc controller
+        builder.RegisterApiControllers(typeFinder.GetAssemblies().ToArray());		//register api controller
+		builder.RegisterType<Service>().As<IService>().InstancePerLifetimeScope(); 
+	}
+    Resolve: EngineContext.Resolve<IService>();
+}
+
