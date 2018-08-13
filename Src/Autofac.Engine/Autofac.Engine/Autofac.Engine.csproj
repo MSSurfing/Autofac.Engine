@@ -5,8 +5,8 @@
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
-    <AssemblyVersion>4.2.0.1</AssemblyVersion>
-    <FileVersion>4.2.0.1</FileVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <FileVersion>4.2.0.0</FileVersion>
     <PackageReleaseNotes>Autofac engine, MS Surfing</PackageReleaseNotes>
     <Company>MS Surfing</Company>
     <Authors>MS Surfing</Authors>
@@ -20,6 +20,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DocumentationFile>bin\Debug\netstandard2.0\Autofac.Engine.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Autofac.Engine.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
