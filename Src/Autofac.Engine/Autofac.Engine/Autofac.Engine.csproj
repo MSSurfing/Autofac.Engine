@@ -2,10 +2,24 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <SignAssembly>false</SignAssembly>
+    <ApplicationIcon />
+    <Win32Resource />
+    <AssemblyVersion>4.2.0.1</AssemblyVersion>
+    <FileVersion>4.2.0.1</FileVersion>
+    <PackageReleaseNotes>Autofac engine, MS Surfing</PackageReleaseNotes>
+    <Company>MS Surfing</Company>
+    <Authors>MS Surfing</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
+    <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
+    <Version>4.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>bin\Debug\netstandard2.0\Autofac.Engine.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

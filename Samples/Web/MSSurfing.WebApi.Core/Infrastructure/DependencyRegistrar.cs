@@ -12,7 +12,7 @@ namespace MSSurfing.WebApi.Infrastructure
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder)
         {
             //builder.RegisterType<UserService>().As<IUserService>().InstancePerDependency();
-            builder.RegisterTypeMapper(typeFinder, "MSSurfing.Services.dll", "Service");
+            builder.RegisterAssemblyTypes(typeFinder, "MSSurfing.Services.dll", "Service").AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<Logger>().As<ILogger>().InstancePerLifetimeScope();
 
             //repository 

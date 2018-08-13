@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Thrift\gen-csharp\**" />
+    <EmbeddedResource Remove="Thrift\gen-csharp\**" />
+    <None Remove="Thrift\gen-csharp\**" />
+  </ItemGroup>
+
+</Project>

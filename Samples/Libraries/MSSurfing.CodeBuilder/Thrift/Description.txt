@@ -1,0 +1,36 @@
+﻿//Thrift IDL 支持的基本数据类型为：
+//bool A boolean value, true or false
+//byte A signed byte
+//i16 A 16-bit signed integer
+//i32 A 32-bit signed integer
+//i64 A 64-bit signed integer
+//double A 64-bit floating point number
+//string An encoding-agnostic text or binary string
+//struct A Thrift struct defines a common object to be used across languages.
+//list<type> An ordered list of elements.
+//set<type> An unordered set of unique elements.
+//map<type1, type2> A map of strictly unique keys to values
+//Translates into an STL map, Java HashMap, PHP associative
+//array, or Python/Ruby dictionary.
+
+
+//注：
+// 在 include "TShippingContainerCharge.tf" 引用外部文件及结构体或类时，注意引用格式：<文件名>.<类名>  如：TShippingContainerCharge.TShippingContainerCharge
+
+
+
+
+
+//项目属性->预生成事件命令
+rmdir /s /q "$(ProjectDir)Thrift\gen-csharp"
+del /f /q "$(ProjectDir)Thrift\Lcang.Service.MessageCenter.ThriftImpl.dll"
+SET OUTPUT_DIR=$(ProjectDir)Thrift\
+SET THRIFT_FILE=$(ProjectDir)Thrift\DTO.thrift
+for %%I in ("%OUTPUT_DIR%") do set SHORT_DIR=%%~fsI
+for %%I in ("%THRIFT_FILE%") do set THRIFT_SHORT=%%~fsI
+"$(ProjectDir)Thrift\thrift.exe" --gen csharp -o %SHORT_DIR% %THRIFT_SHORT%
+SET THRIFT_FILE=$(ProjectDir)Thrift\Message.thrift
+for %%I in ("%OUTPUT_DIR%") do set SHORT_DIR=%%~fsI
+for %%I in ("%THRIFT_FILE%") do set THRIFT_SHORT=%%~fsI
+"$(ProjectDir)Thrift\thrift.exe" --gen csharp -o %SHORT_DIR% %THRIFT_SHORT%
+"$(MSBuildToolsPath)\Csc.exe" /t:library /out:"$(ProjectDir)Thrift\Lcang.Service.MessageCenter.ThriftImpl.dll" /recurse:"$(ProjectDir)Thrift\gen-csharp"\* /reference:"$(ProjectDir)Thrift\Thrift.dll"
