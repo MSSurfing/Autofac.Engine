@@ -21,22 +21,25 @@ namespace Autofac.Engine
 #endif
         #endregion
 
-        #region Utilities
+        #region DefaultScope / ServiceProvider Utilities
         protected static ILifetimeScope DefaultScope(IContainer container)
         {
             return container.BeginLifetimeScope();
         }
 
-        protected static void SetScope(string tag)
+        protected static void SetDefaultScope(object tag)
         {
             _scope = (e) => e.BeginLifetimeScope(tag);
         }
-        protected static void SetScope(ScopeTag tag)
+        protected static void SetDefaultScope(ScopeTag tag)
         {
             switch (tag)
             {
                 case ScopeTag.Http:
                     _scope = (e) => e.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
+                    break;
+                case ScopeTag.NewTag:
+                    _scope = (e) => e.BeginLifetimeScope(new object());
                     break;
                 default:
                     _scope = DefaultScope;
@@ -105,6 +108,19 @@ namespace Autofac.Engine
         #endregion
 
         #region Methods
+        public static ILifetimeScope BeginLifetimeScope(out object tag)
+        {
+            tag = new object();
+            return _container.BeginLifetimeScope(tag);
+        }
+        public static ILifetimeScope BeginLifetimeScope(object tag)
+        {
+            return _container.BeginLifetimeScope(tag);
+        }
+        public static ILifetimeScope BeginLifetimeScope(ScopeTag tag = ScopeTag.NewTag)
+        {
+            return BeginLifetimeScope(new object());
+        }
 
 #if NETSTANDARD2_0
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -113,7 +129,7 @@ namespace Autofac.Engine
             if (services != null)
                 services.BuildServiceProvider();
 
-            SetScope(tag);
+            SetDefaultScope(tag);
             RegisterDependencies(services);
             return GetServiceProvider();
         }
@@ -130,7 +146,7 @@ namespace Autofac.Engine
             if (services != null)
                 services.BuildServiceProvider();
 
-            SetScope(tag);
+            SetDefaultScope(tag);
             RegisterDependencies(services);
             return GetServiceProvider();
         }
@@ -141,7 +157,7 @@ namespace Autofac.Engine
         public static IContainer Initialize(ScopeTag tag = ScopeTag.None)
         {
             RegisterDependencies();
-            SetScope(tag);
+            SetDefaultScope(tag);
             return _container;
         }
 
