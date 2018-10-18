@@ -5,16 +5,17 @@
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
-    <AssemblyVersion>4.2.0.0</AssemblyVersion>
-    <FileVersion>4.2.0.0</FileVersion>
-    <PackageReleaseNotes>Autofac engine, MS Surfing</PackageReleaseNotes>
-    <Company>MS Surfing</Company>
-    <Authors>MS Surfing</Authors>
+    <AssemblyVersion>4.3.0.5</AssemblyVersion>
+    <FileVersion>4.3.0.5</FileVersion>
+    <PackageReleaseNotes>Autofac engine, MS Surfing, MSSurfing.Api</PackageReleaseNotes>
+    <Company>MSSurfing.Api</Company>
+    <Authors>MSSurfing.Api</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
     <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>4.2.0</Version>
+    <Version>4.3.0</Version>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">

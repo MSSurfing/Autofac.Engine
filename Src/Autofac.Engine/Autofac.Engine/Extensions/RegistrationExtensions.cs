@@ -12,6 +12,47 @@ namespace Autofac.Engine
     /// </summary>
     public static class RegistrationExtensions
     {
+        #region RegisterAssemblyTypes Extensions
+        /// <summary>
+        /// 匹配注册
+        /// </summary>
+        /// <example>
+        /// 例[e.g]：
+        ///     containerBuidler.RegisterAssemblyTypes(typeFinder,"Service").AsImplementedInterfaces();
+        /// </example>
+        /// <remarks>
+        /// main code : {  builder.RegisterAssemblyTypes(typeFinder.GetAssemblies(...)).Where(e => e.Name.EndsWith(typeEndName)); }
+        /// </remarks>
+        /// <param name="builder">ContainerBuilder</param>
+        /// <param name="typeFinder">扫描的程序集</param>
+        /// <param name="typeEndName">匹配类名的后缀（是实例名，不是接口名[name of Implemented type,Is not the name of the interface]）</param>
+        /// <returns></returns>
+        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterAssemblyTypes(this ContainerBuilder builder, ITypeFinder typeFinder, string typeEndName)
+        {
+            Assembly[] assemblies = typeFinder.GetAssemblies().ToArray();
+            return builder.RegisterAssemblyTypes(assemblies, typeEndName);
+        }
+
+        /// <summary>
+        /// 匹配注册
+        /// </summary>
+        /// <example>
+        /// 例[e.g]：
+        ///     containerBuidler.RegisterAssemblyTypes(typeFinder,"Service").AsImplementedInterfaces();
+        /// </example>
+        /// <remarks>
+        /// main code : {  builder.RegisterAssemblyTypes(typeFinder.GetAssemblies(...)).Where(e => e.Name.EndsWith(typeEndName)); }
+        /// </remarks>
+        /// <param name="builder">ContainerBuilder</param>
+        /// <param name="typeFinder">扫描的程序集</param>
+        /// <param name="assembleFullname">程序集全称，含.dll（如：MSSurfing.WebApi.dll）</param>
+        /// <param name="typeEndName">匹配类名的后缀（是实例名，不是接口名[name of Implemented type,Is not the name of the interface]）</param>
+        /// <returns></returns>
+        public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterAssemblyTypes(this ContainerBuilder builder, Assembly[] assemblies, string typeEndName)
+        {
+            return builder.RegisterAssemblyTypes(assemblies).Where(e => e.Name.EndsWith(typeEndName, StringComparison.OrdinalIgnoreCase));
+        }
+
         /// <summary>
         /// 匹配注册
         /// </summary>
@@ -29,13 +70,9 @@ namespace Autofac.Engine
         /// <returns></returns>
         public static IRegistrationBuilder<object, ScanningActivatorData, DynamicRegistrationStyle> RegisterAssemblyTypes(this ContainerBuilder builder, ITypeFinder typeFinder, string assembleFullname, string typeEndName)
         {
-            Assembly[] assemblies;
-            if (string.IsNullOrEmpty(assembleFullname))
-                assemblies = typeFinder.GetAssemblies().ToArray();
-            else
-                assemblies = typeFinder.GetAssemblies().Where(e => e.ManifestModule.Name.Equals(assembleFullname, StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            return builder.RegisterAssemblyTypes(assemblies).Where(e => e.Name.EndsWith(typeEndName, StringComparison.OrdinalIgnoreCase));
+            Assembly[] assemblies = typeFinder.GetAssemblies().Where(e => e.ManifestModule.Name.Equals(assembleFullname, StringComparison.OrdinalIgnoreCase)).ToArray();
+            return builder.RegisterAssemblyTypes(assemblies, typeEndName);
         }
+        #endregion
     }
 }
