@@ -57,11 +57,11 @@ namespace Autofac.Engine
             return _serviceProvider;
         }
 
-        protected static IContainer RegisterDependencies(IServiceCollection services = null)
+        protected static IContainer RegisterDependencies(IServiceCollection services = null, bool onlySafeAssembly = true)
         {
             var containerBuilder = new ContainerBuilder();
 
-            var typeFinder = new DomainTypeFinder();
+            var typeFinder = new DomainTypeFinder(onlySafeAssembly);
             containerBuilder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
 
             var dependencyTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
@@ -86,11 +86,11 @@ namespace Autofac.Engine
 #endif
 
 #if NET45
-        protected static void RegisterDependencies()
+        protected static void RegisterDependencies(bool onlySafeAssembly = true)
         {
             var builder = new ContainerBuilder();
 
-            var typeFinder = new DomainTypeFinder();
+            var typeFinder = new DomainTypeFinder(onlySafeAssembly);
             builder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
 
             var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
@@ -124,48 +124,48 @@ namespace Autofac.Engine
 
 #if NETSTANDARD2_0
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IServiceProvider Initialize(IServiceCollection services = null, ScopeTag tag = ScopeTag.None)
+        public static IServiceProvider Initialize(IServiceCollection services = null, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
         {
             if (services != null)
                 services.BuildServiceProvider();
 
             SetDefaultScope(tag);
-            RegisterDependencies(services);
+            RegisterDependencies(services, onlySafeAssembly);
             return GetServiceProvider();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IServiceProvider Initialize(string tag)
+        public static IServiceProvider Initialize(string tag, bool onlySafeAssembly = true)
         {
-            return Initialize(null, tag);
+            return Initialize(null, tag, onlySafeAssembly);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IServiceProvider Initialize(IServiceCollection services, string tag)
+        public static IServiceProvider Initialize(IServiceCollection services, string tag, bool onlySafeAssembly = true)
         {
             if (services != null)
                 services.BuildServiceProvider();
 
             SetDefaultScope(tag);
-            RegisterDependencies(services);
+            RegisterDependencies(services, onlySafeAssembly);
             return GetServiceProvider();
         }
 #endif
 
 #if NET45
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IContainer Initialize(ScopeTag tag = ScopeTag.None)
+        public static IContainer Initialize(ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
         {
-            RegisterDependencies();
+            RegisterDependencies(onlySafeAssembly: onlySafeAssembly);
             SetDefaultScope(tag);
             return _container;
         }
 
         [Obsolete("已不支持forceRecreate，可以使用 Initialize(ScopeTag)", false)]
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IContainer Initialize(bool forceRecreate, ScopeTag tag = ScopeTag.None)
+        public static IContainer Initialize(bool forceRecreate, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
         {
-            return Initialize(tag);
+            return Initialize(tag, onlySafeAssembly);
         }
 #endif
         #endregion

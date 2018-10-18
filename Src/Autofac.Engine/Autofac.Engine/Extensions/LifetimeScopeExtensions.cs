@@ -32,10 +32,10 @@ namespace Autofac.Engine
             return scope.TryResolve<T>(out instance);
         }
 
-        public static bool TryResolve(this ILifetimeScope scope, Type serviceType, out object instance)
-        {
-            return scope.TryResolve(serviceType, out instance);
-        }
+        //public static bool TryResolve(this ILifetimeScope scope, Type serviceType, out object instance)
+        //{
+        //    return scope.TryResolve()
+        //}
 
         public static object ResolveUnregistered(this ILifetimeScope scope, Type type)
         {

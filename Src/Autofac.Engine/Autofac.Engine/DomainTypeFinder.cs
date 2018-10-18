@@ -11,15 +11,17 @@ namespace Autofac.Engine
     {
         #region Fields
         private const string IGNORE_ASSEMBLY_PATTERN = "^System|^mscorlib|^Microsoft";
+        private readonly bool _onlySafeAssembly;
+        #endregion
+
+        #region Cotr
+        public DomainTypeFinder(bool onlySafeAssembly = true)
+        {
+            _onlySafeAssembly = onlySafeAssembly;
+        }
         #endregion
 
         #region Properties
-
-        public virtual AppDomain Domain
-        {
-            get { return AppDomain.CurrentDomain; }
-        }
-
         #endregion
 
         #region Utilities
@@ -56,10 +58,22 @@ namespace Autofac.Engine
                 {
                     var an = AssemblyName.GetAssemblyName(dllPath);
                     if (!IsMatch(an.FullName, IGNORE_ASSEMBLY_PATTERN) && !ignoreAssemblyNames.Contains(an.FullName))
-                        Domain.Load(an);
+                        Assembly.Load(an);
                 }
-                catch (BadImageFormatException ex)
+                catch (Exception ex)
                 {
+                    if (!_onlySafeAssembly)
+                    {
+                        try
+                        {
+                            Assembly.UnsafeLoadFrom(dllPath);
+                        }
+                        catch (Exception ex2)
+                        {
+                            Trace.TraceError(ex2.ToString());
+                        }
+                    }
+
                     Trace.TraceError(ex.ToString());
                 }
             }
@@ -155,17 +169,15 @@ namespace Autofac.Engine
             return result;
         }
 
-        public virtual IList<Assembly> GetAssemblies(bool allInBinDirectory = true)
+        public virtual IList<Assembly> GetAssemblies()
         {
             var assemblyNames = new List<string>();
             var assemblies = new List<Assembly>();
 
+            var binPath = GetBinDirectory();
+            LoadMatchingAssemblies(binPath, assemblyNames);
+
             AddAssembliesInAppDomain(assemblyNames, assemblies);
-            if (allInBinDirectory)
-            {
-                var binPath = GetBinDirectory();
-                LoadMatchingAssemblies(binPath, assemblyNames);
-            }
 
             return assemblies;
         }
