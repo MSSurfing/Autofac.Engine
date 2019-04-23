@@ -51,7 +51,7 @@ namespace Autofac.Engine
         private static IServiceProvider GetServiceProvider()
         {
             if (_serviceProvider == null)
-                _serviceProvider = new AutofacServiceProvider(_container);
+                _serviceProvider = new AutofacServiceProvider(Scope);
 
             //ToImprove  Microsoft.AspNetCore.Http.HttpContext.IServiceProvider
             return _serviceProvider;
