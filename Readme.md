@@ -159,7 +159,7 @@ builder.RegisterAssemblyTypes(typeFinder, "Services.dll", typeEndName: "Service"
 
 泛型注册 RegisterGeneric
 ```C#
-builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope(); // or SingleInstance()
 ```
 
 单例服务的注册 SingleInstance
