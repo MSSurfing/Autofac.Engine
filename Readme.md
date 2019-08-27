@@ -22,7 +22,7 @@ public class DependencyRegistrar : IDependencyRegistrar
     public void Register(ContainerBuilder builder, ITypeFinder typeFinder)
     {
         //泛型类型的注册
-        builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+        builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
     }
 }
 
@@ -40,6 +40,12 @@ public class DependencyRegistrar2 : IDependencyRegistrar
 组件注册更多参考：[Autofac中文文档-组件注册](https://autofaccn.readthedocs.io/zh/latest/register/parameters.html)
 
 组件注册更多参考：[Autofac英文文档-Registration Concepts](https://autofac.readthedocs.io/en/latest/register/registration.html)
+
+#### 关于 生命周期
+
+// Todo
+
+组件注册时的 生命周期可参考：[生命周期 or 实例作用域](https://autofaccn.readthedocs.io/zh/latest/lifetime/instance-scope.html)
 
 ## 应用启动
 在应用程序启动时调用 EngineContext.Initialie();初始化注册，就可以再任意地方解析服务。
