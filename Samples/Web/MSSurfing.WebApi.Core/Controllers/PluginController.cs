@@ -25,7 +25,7 @@ namespace MSSurfing.WebApi.Controllers
 
             IPlugin plugin = null;
             if (!EngineContext.TryResolve(type, out object instance))
-                instance = EngineContext.ResolveUnregistered(type);
+                instance = EngineContext.BeginLifetimeScope().ResolveUnregistered(type);
 
             plugin = instance as IPlugin;
             if (plugin == null)

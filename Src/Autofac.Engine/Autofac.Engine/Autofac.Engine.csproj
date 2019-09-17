@@ -5,8 +5,8 @@
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
-    <AssemblyVersion>4.3.0.5</AssemblyVersion>
-    <FileVersion>4.3.0.5</FileVersion>
+    <AssemblyVersion>4.5.2.3</AssemblyVersion>
+    <FileVersion>4.5.2.3</FileVersion>
     <PackageReleaseNotes>Autofac engine, MS Surfing, MSSurfing.Api</PackageReleaseNotes>
     <Company>MSSurfing.Api</Company>
     <Authors>MSSurfing.Api</Authors>
@@ -14,8 +14,21 @@
     <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
     <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>4.3.0</Version>
+    <Version>4.5.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>Samples ：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples
+Samples Code : {
+   Init : Startup.ConfigureServices(){ 
+         return EngineContext.Initialize(services, ScopeTag.Http); 
+   },
+   Registrar : A:IDependencyRegistrar { builder.RegisterType&lt;Service&gt;().InstancePerLifetimeScope(); }
+   Resolve(Anywhere) : EngineContext.Resolve&lt;IService&gt;();
+   Resolve(New Lifetime) : EngineContext.BeginLifetimeScope().Resolve&lt;IService&gt;();
+}</Description>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageTags>Autofac engine, MS Surfing, MSSurfing.Api</PackageTags>
+    <PackageLicenseUrl>None</PackageLicenseUrl>
+    <Copyright>None</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
