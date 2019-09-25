@@ -1,6 +1,5 @@
 ﻿using Autofac.Core;
 using Autofac.Core.Registration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +20,7 @@ namespace Autofac.Engine
         /// <exception cref="DependencyResolutionException"/>
         public static T Resolve<T>() where T : class
         {
-            return (T)Resolve(typeof(T));
+            return Scope.Resolve<T>();
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace Autofac.Engine
 #if NET45
             return Scope.Resolve(type);
 #else
-            return ServiceProvider.GetRequiredService(type);
+            return Scope.Resolve(type);
 #endif
         }
 
@@ -51,7 +50,7 @@ namespace Autofac.Engine
 #if NET45
             return Scope.Resolve<IEnumerable<T>>();
 #else
-            return ServiceProvider.GetService<IEnumerable<T>>();
+            return Scope.Resolve<IEnumerable<T>>();
 #endif
         }
         #endregion
