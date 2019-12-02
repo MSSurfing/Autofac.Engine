@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.AspNetCore.Mvc;
 using MSSurfing.Services;
 using MSSurfing.Services.Users;
 
-namespace MSSurfing.WebApi.Controllers
+namespace MSSurfing.WebApi.Core30.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/User")]
-    public class UserController : BasePublicController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : BaseController
     {
         #region Fields
         private readonly IUserService _userService;
@@ -21,7 +22,14 @@ namespace MSSurfing.WebApi.Controllers
         }
         #endregion
 
-        [HttpGet]
+        #region Utilities
+        protected JsonResult Json(IEnumerable Data, int Total)
+        {
+            return Json(new { data = Data, total = Total });
+        }
+        #endregion
+
+        [HttpGet, Route("search")]
         public JsonResult Search()
         {
             var list = _userService.Search();

@@ -1,34 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;netcoreapp3.0</TargetFrameworks>
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
-    <AssemblyVersion>4.6.0.0</AssemblyVersion>
-    <FileVersion>4.6.0.0</FileVersion>
-    <PackageReleaseNotes>Autofac engine, MS Surfing, MSSurfing.Api</PackageReleaseNotes>
-    <Company>MSSurfing.Api</Company>
-    <Authors>MSSurfing.Api</Authors>
+    <AssemblyVersion>4.7.2.0</AssemblyVersion>
+    <FileVersion>4.7.2.0</FileVersion>
+    <PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases
+支持 .Net Core 3.0</PackageReleaseNotes>
+    <Company>Autofac</Company>
+    <Authors>Autofac MsSurfing</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
     <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>4.6.0</Version>
+    <Version>4.7.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>Samples ：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples
-Samples Code : {
-   Init : Startup.ConfigureServices(){ 
-         return EngineContext.Initialize(services, ScopeTag.Http); 
-   },
-   Registrar : A:IDependencyRegistrar { builder.RegisterType&lt;Service&gt;().InstancePerLifetimeScope(); }
-   Resolve(Anywhere) : EngineContext.Resolve&lt;IService&gt;();
-   Resolve(New Lifetime) : EngineContext.BeginLifetimeScope().Resolve&lt;IService&gt;();
-}</Description>
+    <Description>NetCore3+:
+https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30
+NetCore：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/MSSurfing.WebApi.Core
+Net45+:https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Net45</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageTags>Autofac engine, MS Surfing, MSSurfing.Api</PackageTags>
-    <PackageLicenseUrl>None</PackageLicenseUrl>
+    <PackageTags>autofac;di;ioc;dependencyinjection</PackageTags>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <Copyright>None</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
@@ -41,7 +38,7 @@ Samples Code : {
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.2.1" />
+    <PackageReference Include="Autofac" Version="4.5.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
   </ItemGroup>
 

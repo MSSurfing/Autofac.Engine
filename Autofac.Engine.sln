@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{391F1105-84AF-4348-AB70-473D6B6D2DA2}"
 	ProjectSection(SolutionItems) = preProject
@@ -42,7 +42,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSurfing.WebApi.Net45", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSurfing.gRpcServer.Net45", "Samples\XConsoles\MSSurfing.gRpcServer\MSSurfing.gRpcServer.Net45\MSSurfing.gRpcServer.Net45.csproj", "{7B4F3B3D-CB41-4277-BA97-E5334166BF58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSurfing.CodeBuilder", "Samples\Libraries\MSSurfing.CodeBuilder\MSSurfing.CodeBuilder.csproj", "{FEA564D0-68E5-417E-9C01-29DDA764EC39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSSurfing.CodeBuilder", "Samples\Libraries\MSSurfing.CodeBuilder\MSSurfing.CodeBuilder.csproj", "{FEA564D0-68E5-417E-9C01-29DDA764EC39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSurfing.WebApi.Core30", "Samples\Web\MSSurfing.WebApi.Core30\MSSurfing.WebApi.Core30.csproj", "{7A214239-E46D-4C9F-BD4A-D169C31BE239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,10 @@ Global
 		{FEA564D0-68E5-417E-9C01-29DDA764EC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEA564D0-68E5-417E-9C01-29DDA764EC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEA564D0-68E5-417E-9C01-29DDA764EC39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A214239-E46D-4C9F-BD4A-D169C31BE239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A214239-E46D-4C9F-BD4A-D169C31BE239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A214239-E46D-4C9F-BD4A-D169C31BE239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A214239-E46D-4C9F-BD4A-D169C31BE239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{D0B2F4A8-11E8-4922-94B1-8F7DD0489218} = {43724964-F226-43A0-9862-DBF7EB1508E8}
 		{7B4F3B3D-CB41-4277-BA97-E5334166BF58} = {FE33A213-4D5B-4D08-92D4-5BF46CD7F9F8}
 		{FEA564D0-68E5-417E-9C01-29DDA764EC39} = {11021029-DDFD-4722-90C7-6762407295CA}
+		{7A214239-E46D-4C9F-BD4A-D169C31BE239} = {43724964-F226-43A0-9862-DBF7EB1508E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E728BACF-60E2-42D2-BB31-428685388808}

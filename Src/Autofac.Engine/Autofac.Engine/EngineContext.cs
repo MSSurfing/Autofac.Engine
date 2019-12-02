@@ -47,6 +47,28 @@ namespace Autofac.Engine
             }
         }
 
+#if NETCOREAPP3_0
+        protected static ContainerBuilder RegisterDependencies(ContainerBuilder builder = null, bool onlySafeAssembly = true)
+        {
+            var typeFinder = new DomainTypeFinder(onlySafeAssembly);
+            builder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
+
+            var dependencyTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
+            var dependencyInstances = new List<IDependencyRegistrar>();
+            foreach (var dependency in dependencyTypes)
+            {
+                dependencyInstances.Add((IDependencyRegistrar)Activator.CreateInstance(dependency));
+            }
+
+            dependencyInstances = dependencyInstances.AsQueryable().OrderBy(t => t.Order).ToList();
+            foreach (var dependencyRegistrar in dependencyInstances)
+                dependencyRegistrar.Register(builder, typeFinder);
+
+            builder.RegisterBuildCallback(container => { _container = container; });
+            return builder;
+        }
+#endif
+
 #if NETSTANDARD2_0
         private static IServiceProvider GetServiceProvider()
         {
@@ -121,6 +143,18 @@ namespace Autofac.Engine
         {
             return BeginLifetimeScope(new object());
         }
+
+#if NETCOREAPP3_0
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static ContainerBuilder Initialize(ContainerBuilder builder, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
+        {
+            SetDefaultScope(tag);
+
+            RegisterDependencies(builder, onlySafeAssembly);
+
+            return builder;
+        }
+#endif
 
 #if NETSTANDARD2_0
         [MethodImpl(MethodImplOptions.Synchronized)]
