@@ -1,6 +1,15 @@
 Github => https://github.com/MSSurfing/Autofac.Engine
 Samples => https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples
 
+Net Core 3.0+:
+	Init：
+		1、 Program.Main() => IHostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+		2、 增加 ConfigureContainer方法 及 初始化 Autofac.Engine
+			void ConfigureContainer(ContainerBuilder builder) => EngineContext.Initialize(builder);
+
+	Registrar : => .\MSSurfing.WebApi.Core30\Infrastrcture\DependencyRegistrar
+	...
+
 Net Core:
 	MSSurfing.WebApi.Core
 		http://localhost:57104/api/user/adduser

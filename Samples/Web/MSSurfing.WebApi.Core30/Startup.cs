@@ -19,8 +19,10 @@ namespace MSSurfing.WebApi.Core30
     {
         /*
          * Todo https://docs.autofac.org/en/latest/integration/aspnetcore.html#asp-net-core-3-0-and-generic-hosting
-         * 
-         * 
+         *  
+         *  初始化方式：
+         *      1、使用Autofac服务提供器： UseServiceProviderFactory(new AutofacServiceProviderFactory())
+         *      2、增加 ConfigureContainer方法 及 初始化 Autofac.Engine
          */
 
         public Startup(IConfiguration configuration)
@@ -34,10 +36,9 @@ namespace MSSurfing.WebApi.Core30
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            //EngineContext.Initialize(services, ScopeTag.Http);
         }
 
+        // 2、增加 ConfigureContainer方法 及 初始化 Autofac.Engine
         public void ConfigureContainer(ContainerBuilder builder)
         {
             EngineContext.Initialize(builder);
