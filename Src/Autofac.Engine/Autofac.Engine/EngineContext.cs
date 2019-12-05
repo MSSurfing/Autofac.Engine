@@ -50,6 +50,9 @@ namespace Autofac.Engine
 #if NETCOREAPP3_0
         protected static ContainerBuilder RegisterDependencies(ContainerBuilder builder = null, bool onlySafeAssembly = true)
         {
+            if (builder == null)
+                builder = new ContainerBuilder();
+
             var typeFinder = new DomainTypeFinder(onlySafeAssembly);
             builder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
 
@@ -151,6 +154,19 @@ namespace Autofac.Engine
             SetDefaultScope(tag);
 
             RegisterDependencies(builder, onlySafeAssembly);
+
+            return builder;
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static ContainerBuilder Initialize(bool doBuild = true, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
+        {
+            SetDefaultScope(tag);
+
+            var builder = RegisterDependencies(null, onlySafeAssembly);
+
+            if (doBuild)
+                builder.Build();
 
             return builder;
         }
