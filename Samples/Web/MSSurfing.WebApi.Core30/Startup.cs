@@ -20,9 +20,9 @@ namespace MSSurfing.WebApi.Core30
         /*
          * Todo https://docs.autofac.org/en/latest/integration/aspnetcore.html#asp-net-core-3-0-and-generic-hosting
          *  
-         *  ³õÊ¼»¯·½Ê½£º
-         *      1¡¢Ê¹ÓÃAutofac·şÎñÌá¹©Æ÷£º UseServiceProviderFactory(new AutofacServiceProviderFactory())
-         *      2¡¢Ôö¼Ó ConfigureContainer·½·¨ ¼° ³õÊ¼»¯ Autofac.Engine
+         *  Initialize åˆå§‹åŒ–æ–¹å¼ï¼š
+         *      step 1ã€ä½¿ç”¨AutofacæœåŠ¡æä¾›å™¨ï¼š UseServiceProviderFactory(new AutofacServiceProviderFactory())
+         *      step 2ã€å¢åŠ  ConfigureContaineræ–¹æ³• åŠ åˆå§‹åŒ– Autofac.Engine
          */
 
         public Startup(IConfiguration configuration)
@@ -38,7 +38,7 @@ namespace MSSurfing.WebApi.Core30
             services.AddControllers();
         }
 
-        // 2¡¢Ôö¼Ó ConfigureContainer·½·¨ ¼° ³õÊ¼»¯ Autofac.Engine
+        // step 2ã€å¢åŠ  ConfigureContaineræ–¹æ³• åŠ åˆå§‹åŒ– Autofac.Engine
         public void ConfigureContainer(ContainerBuilder builder)
         {
             EngineContext.Initialize(builder);
