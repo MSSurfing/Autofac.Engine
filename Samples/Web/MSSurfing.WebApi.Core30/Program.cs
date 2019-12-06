@@ -23,7 +23,7 @@ namespace MSSurfing.WebApi.Core30
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                // 1、使用Autofac服务提供器： UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                // step 1銆佷娇鐢ˋutofac鏈嶅姟鎻愪緵鍣細 UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
 }
