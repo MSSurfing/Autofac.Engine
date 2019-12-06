@@ -20,8 +20,8 @@ namespace MSSurfing.Services
     }
     #endregion
 
-    #region Batch Repository.cs file content
-    public partial class BatchRepository<T> : IRepository<T> where T : BaseEntity
+    #region Memory Repository.cs file content
+    public partial class MemoryRepository<T> : IRepository<T> where T : BaseEntity
     {
         #region Fields
         private static readonly object r_lock = new object();
@@ -29,7 +29,7 @@ namespace MSSurfing.Services
         #endregion
 
         #region Ctor
-        public BatchRepository()
+        public MemoryRepository()
         {
             _data = new List<T>();
         }

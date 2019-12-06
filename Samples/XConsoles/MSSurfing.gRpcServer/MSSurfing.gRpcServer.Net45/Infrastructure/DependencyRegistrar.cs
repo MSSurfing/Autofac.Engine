@@ -22,7 +22,7 @@ namespace MSSurfing.gRpcServer.Net45.Infrastructure
             builder.RegisterType<Logger>().As<ILogger>().Keyed<ILogger>("surfing_logger").InstancePerLifetimeScope();
 
             //repository generic type
-            builder.RegisterGeneric(typeof(BatchRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+            builder.RegisterGeneric(typeof(MemoryRepository<>)).As(typeof(IRepository<>)).SingleInstance();
 
             //register, implemented class
             builder.RegisterType<GUserService>().AsSelf().InstancePerLifetimeScope();

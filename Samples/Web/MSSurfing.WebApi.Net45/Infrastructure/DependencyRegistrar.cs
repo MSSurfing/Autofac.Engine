@@ -36,7 +36,7 @@ namespace MSSurfing.WebApi.Infrastructure
             builder.RegisterType<Logger>().As<ILogger>().InstancePerLifetimeScope();
 
             //repository 
-            builder.RegisterGeneric(typeof(BatchRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+            builder.RegisterGeneric(typeof(MemoryRepository<>)).As(typeof(IRepository<>)).SingleInstance();
         }
     }
 }

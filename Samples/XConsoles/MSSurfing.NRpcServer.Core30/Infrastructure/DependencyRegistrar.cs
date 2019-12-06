@@ -16,7 +16,7 @@ namespace MSSurfing.NRpcServer.Core30.Infrastructure
             builder.RegisterType<Logger>().As<ILogger>().InstancePerLifetimeScope();
 
             //repository generic type
-            builder.RegisterGeneric(typeof(BatchRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+            builder.RegisterGeneric(typeof(MemoryRepository<>)).As(typeof(IRepository<>)).SingleInstance();
 
             //repository instance class
             builder.RegisterType<UserProcessor>().AsSelf().InstancePerLifetimeScope();
