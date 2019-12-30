@@ -149,6 +149,26 @@ namespace Autofac.Engine
 
 #if NETCOREAPP3_0
         [MethodImpl(MethodImplOptions.Synchronized)]
+        public static ContainerBuilder Initialize(IServiceCollection services, bool doBuild = true, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
+        {
+            SetDefaultScope(tag);
+
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+
+            RegisterDependencies(builder, onlySafeAssembly);
+
+            if (doBuild)
+                builder.Build();
+
+            return builder;
+        }
+
+        /// <summary>
+        /// initialize & Register dependencies.
+        /// </summary>
+        /// <returns>return a ContainerBuilder, then you need to Build() the ContainerBuilder</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public static ContainerBuilder Initialize(ContainerBuilder builder, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
         {
             SetDefaultScope(tag);

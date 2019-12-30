@@ -5,8 +5,8 @@
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
-    <AssemblyVersion>4.7.3.0</AssemblyVersion>
-    <FileVersion>4.7.3.0</FileVersion>
+    <AssemblyVersion>4.7.5.0</AssemblyVersion>
+    <FileVersion>4.7.5.0</FileVersion>
     <PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases
 支持 .Net Core 3.0+</PackageReleaseNotes>
     <Company>Autofac</Company>
@@ -15,7 +15,7 @@
     <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
     <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>4.7.1</Version>
+    <Version>4.7.5</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>.Net Core 3.0+：
 https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30

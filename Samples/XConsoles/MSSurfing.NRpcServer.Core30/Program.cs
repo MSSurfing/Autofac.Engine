@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Engine;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace MSSurfing.NRpcServer.Core30
@@ -8,7 +9,11 @@ namespace MSSurfing.NRpcServer.Core30
     {
         static void Main(string[] args)
         {
-            EngineContext.Initialize();
+            var service = new ServiceCollection();
+
+            EngineContext.Initialize(service);
+
+            //EngineContext.Initialize();
 
             // or EngineContext.Initialize(doBuild: false).Build();
             // or 
