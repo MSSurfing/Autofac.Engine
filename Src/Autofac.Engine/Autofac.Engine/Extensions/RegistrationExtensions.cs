@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Linq;
 using Autofac.Builder;
 using Autofac.Features.Scanning;
+using System.IO;
 
 namespace Autofac.Engine
 {
@@ -72,6 +73,25 @@ namespace Autofac.Engine
         {
             Assembly[] assemblies = typeFinder.GetAssemblies().Where(e => e.ManifestModule.Name.Equals(assembleFullname, StringComparison.OrdinalIgnoreCase)).ToArray();
             return builder.RegisterAssemblyTypes(assemblies, typeEndName);
+        }
+        #endregion
+
+        #region Register Instance Extensions
+        /// <summary>
+        /// 注册委托实例（实例 可更新/重新注册）
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="builder"></param>
+        /// <param name="instance"></param>
+        /// <param name="useUpdateInstance">是否可被更新。如果为是，可通过<see cref="EngineContext.UpdateInstance{T}(T)"/>方法更新该实例值。
+        /// 注：可被更新时，不能带上 .SingleInstance();</param>
+        /// <returns></returns>
+        public static IRegistrationBuilder<T, SimpleActivatorData, SingleRegistrationStyle> Register<T>(this ContainerBuilder builder, T instance, bool useUpdateInstance) where T : class
+        {
+            if (useUpdateInstance)
+                builder.Register<Action<T>>(c => t => instance = t);
+
+            return builder.Register(c => instance);
         }
         #endregion
     }

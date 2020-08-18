@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using Autofac.Engine;
+using MSSurfing.NRpcServer.Core30.Domain.Configuration;
 using MSSurfing.NRpcServer.Core30.Processors;
 using MSSurfing.Services;
 using MSSurfing.Services.Logging;
+using System;
 
 namespace MSSurfing.NRpcServer.Core30.Infrastructure
 {
@@ -23,6 +25,10 @@ namespace MSSurfing.NRpcServer.Core30.Infrastructure
             builder.RegisterType<PluginProcessor>().AsSelf().InstancePerLifetimeScope();
             //builder.Register(c => new UserProcessor(c.Resolve<IUserService>())).InstancePerDependency();
 
+            // registered instance (change action)
+            var msConfig = new MSConfig() { Version = "5.0.0.1" };
+            builder.Register(msConfig, true);
+            //builder.Register<Action<MSConfig>>(context => config => msConfig = config);
         }
     }
 }

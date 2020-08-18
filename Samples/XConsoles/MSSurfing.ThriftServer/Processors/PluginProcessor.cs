@@ -1,5 +1,6 @@
 ﻿using Autofac.Engine;
 using MSSurfing.Sdk.Plugins;
+using MSSurfing.ThriftServer.Domain.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,22 @@ namespace MSSurfing.ThriftServer.Processors
 
             var executedResult = plugin.Execute();
             return Json(executedResult);
+        }
+
+        public string GetVersion()
+        {
+            var config = EngineContext.Resolve<MSConfig>();
+
+            return Json(config);
+        }
+
+        public string SetVersion(string version)
+        {
+            var config = new MSConfig() { Version = version };
+            EngineContext.UpdateInstance(config);
+
+            config = EngineContext.Resolve<MSConfig>();
+            return Json(config);
         }
     }
 }

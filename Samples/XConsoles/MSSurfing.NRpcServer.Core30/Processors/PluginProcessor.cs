@@ -1,4 +1,5 @@
 ﻿using Autofac.Engine;
+using MSSurfing.NRpcServer.Core30.Domain.Configuration;
 using MSSurfing.Sdk.Plugins;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,22 @@ namespace MSSurfing.NRpcServer.Core30.Processors
 
             var executedResult = plugin.Execute();
             return Json(executedResult);
+        }
+
+        public string GetVersion()
+        {
+            var config = EngineContext.Resolve<MSConfig>();
+
+            return Json(config);
+        }
+
+        public string SetVersion(string version)
+        {
+            var config = new MSConfig() { Version = version };
+            EngineContext.UpdateInstance(config);
+
+            config = EngineContext.Resolve<MSConfig>();
+            return Json(config);
         }
     }
 }

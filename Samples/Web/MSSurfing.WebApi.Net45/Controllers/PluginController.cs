@@ -1,5 +1,6 @@
 ﻿using Autofac.Engine;
 using MSSurfing.Sdk.Plugins;
+using MSSurfing.WebApi.Configuration;
 using MSSurfing.WebApi.Controllers.Base;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,24 @@ namespace MSSurfing.WebApi.Controllers
 
             var executedResult = plugin.Execute();
             return SuccessMessage(executedResult);
+        }
+
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetVersion()
+        {
+            var config = EngineContext.Resolve<MSConfig>();
+
+            return SuccessMessage(Data: config);
+        }
+
+        [HttpGet]
+        public async Task<HttpResponseMessage> SetVersion()
+        {
+            var config = new MSConfig() { Version = Guid.NewGuid().ToString() };
+            EngineContext.UpdateInstance(config);
+
+            config = EngineContext.Resolve<MSConfig>();
+            return SuccessMessage(Data: config);
         }
     }
 }

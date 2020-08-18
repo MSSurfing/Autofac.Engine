@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\MSConfig.cs" />
     <Compile Include="ProgramCommander.cs" />
     <Compile Include="GServices\GPluginService.cs" />
     <Compile Include="Infrastructure\DependencyRegistrar.cs" />

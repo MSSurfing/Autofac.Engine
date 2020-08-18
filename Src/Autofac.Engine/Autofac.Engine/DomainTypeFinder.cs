@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Autofac.Engine
 {
+    /// <summary>DomainTypeFinder</summary>
     public class DomainTypeFinder : ITypeFinder
     {
         #region Fields
@@ -15,6 +16,8 @@ namespace Autofac.Engine
         #endregion
 
         #region Cotr
+        /// <summary>DomainTypeFinder</summary>
+        /// <param name="onlySafeAssembly">是否只加载被引用的程序。否，则会加载根路径加所有dll，默认：不会加载</param>
         public DomainTypeFinder(bool onlySafeAssembly = true)
         {
             _onlySafeAssembly = onlySafeAssembly;

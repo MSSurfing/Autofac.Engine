@@ -172,5 +172,36 @@ namespace Autofac.Engine
         }
         #endregion
 
+        #region Update Instance /* Update the instance that is registered after ContainerBuilder.Build() */
+        /// <summary>
+        /// 更新注册过的实例
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static T UpdateInstance<T>(T instance)
+        {
+            var action = Scope.Resolve<Action<T>>();
+            if (action != null)
+                action.Invoke(instance);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// 更新注册过的实例
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static T TryUpdateInstance<T>(T instance)
+        {
+            Scope.TryResolve<Action<T>>(out var action);
+            if (action != null)
+                action.Invoke(instance);
+
+            return instance;
+        }
+        #endregion
     }
 }

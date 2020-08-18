@@ -12,7 +12,7 @@ namespace MSSurfing.NRpcServer.Core30
             bool isContinue = true;
             do
             {
-                Console.WriteLine("please entry cmd: add / search / loadallplugins");
+                Console.WriteLine("please entry cmd: add / search / loadallplugins / getversion / setversion");
                 var cmd = Console.ReadLine();
                 switch (cmd)
                 {
@@ -25,7 +25,12 @@ namespace MSSurfing.NRpcServer.Core30
                     case "loadallplugins":
                         LoadAllPlugins();
                         break;
-
+                    case "getversion":
+                        GetVersion();
+                        break;
+                    case "setversion":
+                        SetVersion();
+                        break;
 
                     case "exit":
                         isContinue = false;
@@ -53,6 +58,21 @@ namespace MSSurfing.NRpcServer.Core30
         static void LoadAllPlugins()
         {
             var result = EngineContext.Resolve<PluginProcessor>().LoadAllPlugins();
+            Console.WriteLine(result);
+        }
+
+        static void GetVersion()
+        {
+            var result = EngineContext.Resolve<PluginProcessor>().GetVersion();
+            Console.WriteLine(result);
+        }
+
+        static void SetVersion()
+        {
+            var version = Guid.NewGuid().ToString();
+            Console.WriteLine("version:" + version);
+
+            var result = EngineContext.Resolve<PluginProcessor>().SetVersion(version);
             Console.WriteLine(result);
         }
         #endregion

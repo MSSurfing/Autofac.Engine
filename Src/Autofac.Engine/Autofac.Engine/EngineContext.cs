@@ -133,15 +133,26 @@ namespace Autofac.Engine
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Begin a new nested scope. Component instances created via the new scope will be disposed along with it.
+        /// </summary>
         public static ILifetimeScope BeginLifetimeScope(out object tag)
         {
             tag = new object();
             return _container.BeginLifetimeScope(tag);
         }
+
+        /// <summary>
+        /// Begin a new nested scope. Component instances created via the new scope will be disposed along with it.
+        /// </summary>
         public static ILifetimeScope BeginLifetimeScope(object tag)
         {
             return _container.BeginLifetimeScope(tag);
         }
+
+        /// <summary>
+        /// Begin a new nested scope. Component instances created via the new scope will be disposed along with it.
+        /// </summary>
         public static ILifetimeScope BeginLifetimeScope(ScopeTag tag = ScopeTag.NewTag)
         {
             return BeginLifetimeScope(new object());

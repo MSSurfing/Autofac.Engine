@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Engine;
+using MSSurfing.gRpcServer.Net45.Configuration;
 using MSSurfing.gRpcServer.Net45.GServices;
 using MSSurfing.gRpcServer.Net45.Services;
 using MSSurfing.Services;
@@ -27,7 +28,6 @@ namespace MSSurfing.gRpcServer.Net45.Infrastructure
             //register, implemented class
             builder.RegisterType<GUserService>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<GPluginService>().AsSelf().InstancePerLifetimeScope();
-
 
             //register, instance (config)
             //var msConfig = ConfigurationManager.GetSetion("MSConfig") as MSConfig;

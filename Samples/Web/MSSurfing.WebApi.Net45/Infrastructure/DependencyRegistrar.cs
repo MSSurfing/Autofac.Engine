@@ -1,11 +1,11 @@
 ﻿using Autofac;
 using Autofac.Engine;
-using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using MSSurfing.Services;
 using MSSurfing.Services.Logging;
 using System.Web;
 using System.Linq;
+using MSSurfing.WebApi.Configuration;
 
 namespace MSSurfing.WebApi.Infrastructure
 {
@@ -25,7 +25,7 @@ namespace MSSurfing.WebApi.Infrastructure
 
             #region Controllers
             //register mvc controller
-            builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
+            //builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
             //register api controller
             builder.RegisterApiControllers(typeFinder.GetAssemblies().ToArray());
             #endregion
@@ -37,6 +37,10 @@ namespace MSSurfing.WebApi.Infrastructure
 
             //repository 
             builder.RegisterGeneric(typeof(MemoryRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+
+            // registered instance (change action)
+            var msConfig = new MSConfig() { Version = "5.0.0.1" };
+            builder.Register(msConfig, true);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Autofac.Engine;
 using Microsoft.AspNetCore.Mvc;
 using MSSurfing.Sdk.Plugins;
+using MSSurfing.WebApi.Core30.Configuration;
 
 namespace MSSurfing.WebApi.Core30.Controllers
 {
@@ -34,6 +35,24 @@ namespace MSSurfing.WebApi.Core30.Controllers
 
             var executedResult = plugin.Execute();
             return Json(executedResult);
+        }
+
+        [HttpGet, Route("GetVersion")]
+        public JsonResult GetVersion()
+        {
+            var config = EngineContext.Resolve<MSConfig>();
+
+            return Json(config);
+        }
+
+        [HttpGet, Route("SetVersion")]
+        public JsonResult SetVersion()
+        {
+            var config = new MSConfig() { Version = Guid.NewGuid().ToString() };
+            EngineContext.UpdateInstance(config);
+
+            config = EngineContext.Resolve<MSConfig>();
+            return Json(config);
         }
     }
 }

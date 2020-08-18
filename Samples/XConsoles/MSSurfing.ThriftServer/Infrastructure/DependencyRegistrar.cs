@@ -2,6 +2,7 @@
 using Autofac.Engine;
 using MSSurfing.Services;
 using MSSurfing.Services.Logging;
+using MSSurfing.ThriftServer.Domain.Configuration;
 using MSSurfing.ThriftServer.Processors;
 
 namespace MSSurfing.ThriftServer.Infrastructure
@@ -23,6 +24,9 @@ namespace MSSurfing.ThriftServer.Infrastructure
             builder.RegisterType<PluginProcessor>().AsSelf().InstancePerLifetimeScope();
             //builder.Register(c => new UserProcessor(c.Resolve<IUserService>())).InstancePerDependency();
 
+            // registered instance (change action)
+            var msConfig = new MSConfig() { Version = "5.0.0.1" };
+            builder.Register(msConfig, true);
         }
     }
 }

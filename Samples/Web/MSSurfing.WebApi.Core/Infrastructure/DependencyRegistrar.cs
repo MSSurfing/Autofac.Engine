@@ -2,6 +2,7 @@
 using Autofac.Engine;
 using MSSurfing.Services;
 using MSSurfing.Services.Logging;
+using MSSurfing.WebApi.Configuration;
 
 namespace MSSurfing.WebApi.Infrastructure
 {
@@ -17,6 +18,10 @@ namespace MSSurfing.WebApi.Infrastructure
 
             //repository 
             builder.RegisterGeneric(typeof(MemoryRepository<>)).As(typeof(IRepository<>)).SingleInstance();
+
+            // registered instance (change action)
+            var msConfig = new MSConfig() { Version = "5.0.0.1" };
+            builder.Register(msConfig, true);
         }
     }
 }

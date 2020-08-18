@@ -5,22 +5,23 @@
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
-    <AssemblyVersion>4.7.5.0</AssemblyVersion>
-    <FileVersion>4.7.5.0</FileVersion>
+    <AssemblyVersion>5.0.0.2</AssemblyVersion>
+    <FileVersion>5.0.0.1</FileVersion>
     <PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases
-支持 .Net Core 3.0+</PackageReleaseNotes>
+支持 .Net Core 3.0+
+v5.0 不支持 Net Framework</PackageReleaseNotes>
     <Company>Autofac</Company>
     <Authors>Autofac MSSurfing</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
     <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>4.7.5</Version>
+    <Version>5.0.0.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>.Net Core 3.0+：
+    <Description>增加 实例更新方法
+v5.0 不支持 Net Framework
 https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30
-NetCore：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/MSSurfing.WebApi.Core
-Net45+:https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Net45</Description>
+NetCore：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/MSSurfing.WebApi.Core</Description>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageTags>autofac;di;ioc;dependencyinjection</PackageTags>
     <PackageLicenseUrl></PackageLicenseUrl>
