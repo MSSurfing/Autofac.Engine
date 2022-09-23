@@ -67,7 +67,7 @@ namespace Autofac.Engine
             foreach (var dependencyRegistrar in dependencyInstances)
                 dependencyRegistrar.Register(builder, typeFinder);
 
-            builder.RegisterBuildCallback(container => { _container = container; });
+            builder.RegisterBuildCallback(container => { _container = (IContainer)container; });
             return builder;
         }
 #endif
@@ -107,27 +107,6 @@ namespace Autofac.Engine
 
             _container = containerBuilder.Build();
             return _container;
-        }
-#endif
-
-#if NET45
-        protected static void RegisterDependencies(bool onlySafeAssembly = true)
-        {
-            var builder = new ContainerBuilder();
-
-            var typeFinder = new DomainTypeFinder(onlySafeAssembly);
-            builder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
-
-            var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
-            var drInstances = new List<IDependencyRegistrar>();
-            foreach (var drType in drTypes)
-                drInstances.Add((IDependencyRegistrar)Activator.CreateInstance(drType));
-
-            drInstances = drInstances.AsQueryable().OrderBy(t => t.Order).ToList();
-            foreach (var dependencyRegistrar in drInstances)
-                dependencyRegistrar.Register(builder, typeFinder);
-
-            _container = builder.Build();
         }
 #endif
         #endregion
@@ -230,23 +209,6 @@ namespace Autofac.Engine
             SetDefaultScope(tag);
             RegisterDependencies(services, onlySafeAssembly);
             return GetServiceProvider();
-        }
-#endif
-
-#if NET45
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IContainer Initialize(ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
-        {
-            RegisterDependencies(onlySafeAssembly: onlySafeAssembly);
-            SetDefaultScope(tag);
-            return _container;
-        }
-
-        [Obsolete("已不支持forceRecreate，可以使用 Initialize(ScopeTag)", false)]
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IContainer Initialize(bool forceRecreate, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
-        {
-            return Initialize(tag, onlySafeAssembly);
         }
 #endif
         #endregion

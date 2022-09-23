@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <SignAssembly>false</SignAssembly>
     <ApplicationIcon />
     <Win32Resource />
     <AssemblyVersion>5.0.0.2</AssemblyVersion>
-    <FileVersion>5.0.0.1</FileVersion>
+    <FileVersion>5.0.0.2</FileVersion>
     <PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases
 支持 .Net Core 3.0+
 v5.0 不支持 Net Framework</PackageReleaseNotes>
@@ -16,7 +16,7 @@ v5.0 不支持 Net Framework</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
     <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>5.0.0.1</Version>
+    <Version>5.0.0.2</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>增加 实例更新方法
 v5.0 不支持 Net Framework
@@ -39,7 +39,7 @@ NetCore：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/MSSurf
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.5.0" />
+    <PackageReference Include="Autofac" Version="5.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
   </ItemGroup>
 
