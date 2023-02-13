@@ -17,8 +17,27 @@ namespace MSSurfing.Services
         {
             if (condition)
             {
-                var _logger = EngineContext.Resolve<ILogger>();
-                _logger.Debug(message, exception);
+                ILogger _logger = null;
+
+                try { _logger = EngineContext.Resolve<ILogger>(); } catch { }
+                _logger?.Debug(message, exception);
+            }
+        }
+
+        [Conditional("DEBUG")]
+        public static void Debug(ILogger logger, string message, System.Exception exception = null)
+        {
+            DebugIf(logger, true, message: message, exception: exception);
+        }
+
+        [Conditional("DEBUG")]
+        public static void DebugIf(ILogger logger, bool condition, string message, System.Exception exception = null)
+        {
+            if (condition)
+            {
+                if (logger == null)
+                    try { logger = EngineContext.Resolve<ILogger>(); } catch { }
+                logger?.Debug(message, exception);
             }
         }
     }

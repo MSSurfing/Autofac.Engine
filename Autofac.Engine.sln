@@ -46,7 +46,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSSurfing.NRpcServer.Core30
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceProvider", "ServiceProvider", "{D5C97F22-3EC9-4752-82E6-291635F7941A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC.ServiceProvider", "Src\ServiceProvider\IoC.ServiceProvider\IoC.ServiceProvider.csproj", "{88294C11-5755-4971-AC43-4FE4FD698449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoC.ServiceProvider", "Src\ServiceProvider\IoC.ServiceProvider\IoC.ServiceProvider.csproj", "{88294C11-5755-4971-AC43-4FE4FD698449}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.WebApi.Net6", "Samples\Web\MS.WebApi.Net6\MS.WebApi.Net6.csproj", "{FF2FF715-601E-4BD8-B0A7-5E9D8DB561EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +96,10 @@ Global
 		{88294C11-5755-4971-AC43-4FE4FD698449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88294C11-5755-4971-AC43-4FE4FD698449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88294C11-5755-4971-AC43-4FE4FD698449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2FF715-601E-4BD8-B0A7-5E9D8DB561EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2FF715-601E-4BD8-B0A7-5E9D8DB561EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2FF715-601E-4BD8-B0A7-5E9D8DB561EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2FF715-601E-4BD8-B0A7-5E9D8DB561EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{017BC4C1-CF79-4BC4-BEDA-A53D1A1EBE87} = {FE33A213-4D5B-4D08-92D4-5BF46CD7F9F8}
 		{D5C97F22-3EC9-4752-82E6-291635F7941A} = {476CD54E-22FE-4EE6-9B1A-8DDBA3025AD2}
 		{88294C11-5755-4971-AC43-4FE4FD698449} = {D5C97F22-3EC9-4752-82E6-291635F7941A}
+		{FF2FF715-601E-4BD8-B0A7-5E9D8DB561EC} = {43724964-F226-43A0-9862-DBF7EB1508E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E728BACF-60E2-42D2-BB31-428685388808}

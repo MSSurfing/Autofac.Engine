@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Src\ServiceProvider\IoC.ServiceProvider\IoC.ServiceProvider.csproj" />
+    <ProjectReference Include="..\..\Libraries\MSSurfing.Services\MSSurfing.Services.csproj" />
+    <ProjectReference Include="..\..\Plugins\MicroServices.Alipay.Plugins\MicroServices.Alipay.Plugins.csproj" />
+    <ProjectReference Include="..\..\Plugins\MSSurfing.Sdk.Plugins\MSSurfing.Sdk.Plugins.csproj" />
+  </ItemGroup>
+
+</Project>

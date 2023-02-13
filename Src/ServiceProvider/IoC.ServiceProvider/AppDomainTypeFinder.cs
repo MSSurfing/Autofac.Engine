@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
-namespace IoC.ServiceProvider
+namespace IoCServiceProvider
 {
     public class AppDomainTypeFinder : ITypeFinder
     {
@@ -37,19 +38,19 @@ namespace IoC.ServiceProvider
         }
         #endregion
 
-        public virtual IList<Assembly> GetAssemblies()
+        public virtual IEnumerable<Assembly> GetAssemblies(string ignoreAssemblyPattern = ITypeFinder.IGNORE_ASSEMBLY_PATTERN)
         {
-            return AppDomain.CurrentDomain.GetAssemblies();
+            return AppDomain.CurrentDomain.GetAssemblies().Where(e => e.FullName != null && !Regex.IsMatch(e.FullName, ignoreAssemblyPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled));
         }
 
-        public virtual IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true)
+        public virtual IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true, string ignoreAssemblyPattern = ITypeFinder.IGNORE_ASSEMBLY_PATTERN)
         {
-            return FindClassesOfType(typeof(T), onlyConcreteClasses);
+            return FindClassesOfType(typeof(T), onlyConcreteClasses, ignoreAssemblyPattern);
         }
 
-        public virtual IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true)
+        public virtual IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true, string ignoreAssemblyPattern = ITypeFinder.IGNORE_ASSEMBLY_PATTERN)
         {
-            return FindClassesOfType(assignTypeFrom, GetAssemblies(), onlyConcreteClasses);
+            return FindClassesOfType(assignTypeFrom, GetAssemblies(ignoreAssemblyPattern), onlyConcreteClasses);
         }
 
         public virtual IEnumerable<Type> FindClassesOfType<T>(IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
