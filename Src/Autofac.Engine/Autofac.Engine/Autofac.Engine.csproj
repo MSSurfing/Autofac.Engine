@@ -1,52 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <SignAssembly>false</SignAssembly>
-    <ApplicationIcon />
-    <Win32Resource />
-    <AssemblyVersion>5.0.0.2</AssemblyVersion>
-    <FileVersion>5.0.0.2</FileVersion>
-    <PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases
-支持 .Net Core 3.0+
-v5.0 不支持 Net Framework</PackageReleaseNotes>
-    <Company>Autofac</Company>
-    <Authors>Autofac MSSurfing</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
-    <PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-    <Version>5.0.0.2</Version>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>增加 实例更新方法
-v5.0 不支持 Net Framework
-https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30
-NetCore：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/MSSurfing.WebApi.Core</Description>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageTags>autofac;di;ioc;dependencyinjection</PackageTags>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <Copyright>None</Copyright>
-    <PackageLicenseExpression></PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+		<SignAssembly>false</SignAssembly>
+		<ApplicationIcon />
+		<Win32Resource />
+		<AssemblyVersion>8.0.0.1</AssemblyVersion>
+		<FileVersion>8.0.0.1</FileVersion>
+		<PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases  Net8.0</PackageReleaseNotes>
+		<Company></Company>
+		<Authors>Autofac MSSurfing</Authors>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
+		<PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
+		<Version>8.0.0.1</Version>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Description>
+			https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30
+			NetCore：https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/MSSurfing.WebApi.Core
+		</Description>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageTags>autofac;di;ioc;dependencyinjection</PackageTags>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<Copyright>None</Copyright>
+		<PackageLicenseExpression></PackageLicenseExpression>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>bin\Debug\netstandard2.0\Autofac.Engine.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+		<DefineConstants>TRACE;DEBUG</DefineConstants>
+		<DocumentationFile>bin\Debug\net8.0\Autofac.Engine.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\Autofac.Engine.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+		<DocumentationFile>bin\Release\net8.0\Autofac.Engine.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.0.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection">
+			<Version>2.0.0</Version>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
-      <Version>2.0.0</Version>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+	</ItemGroup>
 
 </Project>

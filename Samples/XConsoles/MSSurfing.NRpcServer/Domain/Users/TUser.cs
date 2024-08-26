@@ -14,6 +14,8 @@ using Thrift.Collections;
 using System.Runtime.Serialization;
 using Thrift.Protocol;
 using Thrift.Transport;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MSSurfing.TClient.Domain.Users
 {
@@ -207,6 +209,15 @@ namespace MSSurfing.TClient.Domain.Users
       return __sb.ToString();
     }
 
-  }
+        public Task ReadAsync(TProtocol tProtocol, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task WriteAsync(TProtocol tProtocol, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

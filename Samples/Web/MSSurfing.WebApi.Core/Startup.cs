@@ -26,7 +26,8 @@ namespace MSSurfing.WebApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            return EngineContext.Initialize(services, ScopeTag.Http);       //用于 Api
+            //return EngineContext.Initialize(services, true, ScopeTag.Http);       //用于 Api
+            throw new Exception();
 
             //return EngineContext.Initialize("MStag");                     Error 不可用
             //return EngineContext.Initialize(services);                    //用于 Web / Api
@@ -40,7 +41,7 @@ namespace MSSurfing.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            _ = app.UseMvc();
         }
     }
 }

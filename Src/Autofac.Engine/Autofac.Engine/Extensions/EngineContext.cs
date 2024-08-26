@@ -31,11 +31,7 @@ namespace Autofac.Engine
         /// <exception cref="DependencyResolutionException"/>
         public static object Resolve(Type type)
         {
-#if NET45
             return Scope.Resolve(type);
-#else
-            return Scope.Resolve(type);
-#endif
         }
 
         /// <summary>
@@ -47,11 +43,7 @@ namespace Autofac.Engine
         /// <exception cref="DependencyResolutionException"/>
         public static IEnumerable<T> ResolveAll<T>()
         {
-#if NET45
             return Scope.Resolve<IEnumerable<T>>();
-#else
-            return Scope.Resolve<IEnumerable<T>>();
-#endif
         }
         #endregion
 

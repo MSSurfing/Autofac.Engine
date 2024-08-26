@@ -15,10 +15,8 @@ namespace Autofac.Engine
         private static IContainer _container;
         public static ILifetimeScope Scope { get => _scope(_container); }
 
-#if NETSTANDARD2_0
         private static IServiceProvider _serviceProvider { get; set; }
         public static IServiceProvider ServiceProvider => _serviceProvider;
-#endif
         #endregion
 
         #region DefaultScope / ServiceProvider Utilities
@@ -47,7 +45,7 @@ namespace Autofac.Engine
             }
         }
 
-#if NETCOREAPP3_0
+#if NETCOREAPP3_0 || NET8_0
         protected static ContainerBuilder RegisterDependencies(ContainerBuilder builder = null, bool onlySafeAssembly = true)
         {
             if (builder == null)
@@ -71,47 +69,15 @@ namespace Autofac.Engine
             return builder;
         }
 #endif
-
-#if NETSTANDARD2_0
-        private static IServiceProvider GetServiceProvider()
-        {
-            if (_serviceProvider == null)
-                _serviceProvider = new AutofacServiceProvider(Scope);
-
-            //ToImprove  Microsoft.AspNetCore.Http.HttpContext.IServiceProvider
-            return _serviceProvider;
-        }
-
-        protected static IContainer RegisterDependencies(IServiceCollection services = null, bool onlySafeAssembly = true)
-        {
-            var containerBuilder = new ContainerBuilder();
-
-            var typeFinder = new DomainTypeFinder(onlySafeAssembly);
-            containerBuilder.RegisterInstance<ITypeFinder>(typeFinder).As<ITypeFinder>().SingleInstance();
-
-            var dependencyTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
-            var dependencyInstances = new List<IDependencyRegistrar>();
-            foreach (var dependency in dependencyTypes)
-            {
-                dependencyInstances.Add((IDependencyRegistrar)Activator.CreateInstance(dependency));
-            }
-
-
-            dependencyInstances = dependencyInstances.AsQueryable().OrderBy(t => t.Order).ToList();
-            foreach (var dependencyRegistrar in dependencyInstances)
-                dependencyRegistrar.Register(containerBuilder, typeFinder);
-
-            if (services != null)
-                containerBuilder.Populate(services);
-
-
-            _container = containerBuilder.Build();
-            return _container;
-        }
-#endif
         #endregion
 
         #region Methods
+        /// <summary>可传入 IApplicationBuilder Build() 后的 ApplicationServices </summary>
+        public static void SetServiceProvider(IServiceProvider provider)
+        {
+            _serviceProvider = provider;
+        }
+
         /// <summary>
         /// Begin a new nested scope. Component instances created via the new scope will be disposed along with it.
         /// </summary>
@@ -137,7 +103,8 @@ namespace Autofac.Engine
             return BeginLifetimeScope(new object());
         }
 
-#if NETCOREAPP3_0
+
+#if NETCOREAPP3_0 || NET8_0
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static ContainerBuilder Initialize(IServiceCollection services, bool doBuild = true, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
         {
@@ -179,36 +146,6 @@ namespace Autofac.Engine
                 builder.Build();
 
             return builder;
-        }
-#endif
-
-#if NETSTANDARD2_0
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IServiceProvider Initialize(IServiceCollection services = null, ScopeTag tag = ScopeTag.None, bool onlySafeAssembly = true)
-        {
-            if (services != null)
-                services.BuildServiceProvider();
-
-            SetDefaultScope(tag);
-            RegisterDependencies(services, onlySafeAssembly);
-            return GetServiceProvider();
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IServiceProvider Initialize(string tag, bool onlySafeAssembly = true)
-        {
-            return Initialize(null, tag, onlySafeAssembly);
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public static IServiceProvider Initialize(IServiceCollection services, string tag, bool onlySafeAssembly = true)
-        {
-            if (services != null)
-                services.BuildServiceProvider();
-
-            SetDefaultScope(tag);
-            RegisterDependencies(services, onlySafeAssembly);
-            return GetServiceProvider();
         }
 #endif
         #endregion

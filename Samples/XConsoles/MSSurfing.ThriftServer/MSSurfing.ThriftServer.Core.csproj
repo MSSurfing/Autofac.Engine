@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>MSSurfing.ThriftServer</AssemblyName>
     <RootNamespace>MSSurfing.ThriftServer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="apache-thrift-netcore" Version="0.9.3.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>

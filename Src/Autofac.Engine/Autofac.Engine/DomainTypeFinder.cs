@@ -30,11 +30,7 @@ namespace Autofac.Engine
         #region Utilities
         protected virtual string GetBinDirectory()
         {
-#if NET45
-            return AppDomain.CurrentDomain.BaseDirectory;
-#else
             return System.AppContext.BaseDirectory;
-#endif
         }
 
         protected virtual bool TypeFilter(Type type, Object filterCriteria)
