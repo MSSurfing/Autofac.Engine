@@ -14,7 +14,7 @@
 		<PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
 		<PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-		<Version>8.0.0.1</Version>
+		<Version>8.0.0.2</Version>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<Description>
 			https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30

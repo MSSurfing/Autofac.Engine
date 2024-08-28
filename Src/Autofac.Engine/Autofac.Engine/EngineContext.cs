@@ -19,6 +19,11 @@ namespace Autofac.Engine
         public static IServiceProvider ServiceProvider => _serviceProvider;
         #endregion
 
+        #region Properties
+        private static ITypeFinder _typeFinder;
+        public static ITypeFinder TypeFinder => _typeFinder ??= new DomainTypeFinder();
+        #endregion
+
         #region DefaultScope / ServiceProvider Utilities
         protected static ILifetimeScope DefaultScope(IContainer container)
         {
@@ -66,6 +71,8 @@ namespace Autofac.Engine
                 dependencyRegistrar.Register(builder, typeFinder);
 
             builder.RegisterBuildCallback(container => { _container = (IContainer)container; });
+
+            _typeFinder = typeFinder;
             return builder;
         }
 #endif
