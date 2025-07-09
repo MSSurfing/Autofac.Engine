@@ -5,8 +5,8 @@
 		<SignAssembly>false</SignAssembly>
 		<ApplicationIcon />
 		<Win32Resource />
-		<AssemblyVersion>8.0.0.1</AssemblyVersion>
-		<FileVersion>8.0.0.1</FileVersion>
+		<AssemblyVersion>8.0.0.3</AssemblyVersion>
+		<FileVersion>8.0.0.3</FileVersion>
 		<PackageReleaseNotes>https://github.com/MSSurfing/Autofac.Engine/releases  Net8.0</PackageReleaseNotes>
 		<Company></Company>
 		<Authors>Autofac MSSurfing</Authors>
@@ -14,7 +14,7 @@
 		<PackageProjectUrl>https://github.com/MSSurfing/Autofac.Engine</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MSSurfing/Autofac.Engine</RepositoryUrl>
 		<PackageIconUrl>https://github.com/MSSurfing/Autofac.Engine</PackageIconUrl>
-		<Version>8.0.0.2</Version>
+		<Version>8.0.0.3</Version>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<Description>
 			https://github.com/MSSurfing/Autofac.Engine/tree/master/Samples/Web/MSSurfing.WebApi.Core30
