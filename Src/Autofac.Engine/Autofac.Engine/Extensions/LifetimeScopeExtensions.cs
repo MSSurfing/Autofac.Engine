@@ -1,4 +1,5 @@
 ﻿using Autofac.Core;
+using Autofac;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,7 +30,17 @@ namespace Autofac.Engine
 
         public static bool TryResolve<T>(this ILifetimeScope scope, out T instance)
         {
-            return scope.TryResolve<T>(out instance);
+            var context = (IComponentContext)scope;
+            context.TryResolve(typeof(T), out var x);
+
+            if (x != null && x is T)
+            {
+                instance = (T)x;
+                return true;
+            }
+
+            instance = default(T);
+            return false;
         }
 
         //public static bool TryResolve(this ILifetimeScope scope, Type serviceType, out object instance)
